@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(dotnet build:*)",
+      "Bash(dotnet test:*)",
+      "Bash(./mvnw test:*)",
+      "Bash(./mvnw -q compile:*)",
+      "PowerShell(dotnet build:*)",
+      "PowerShell(dotnet test:*)"
+    ],
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/appsettings.*.local.json)"
+    ]
+  }
+}
