@@ -8,8 +8,15 @@ type Service struct {
 
 func (s *Service) CreateCampaign(newCampaign contract.NewCampaign) (string, error) {
 
-	campaign := Campaign{Name: newCampaign.Name, Content: newCampaign.Content}
-	s.Repository.Save(campaign)
+	campaign, err := NewCampaign(newCampaign.Name, newCampaign.Content, newCampaign.Emails)
+	if err != nil {
+		return "", err
+	}
+
+	err = s.Repository.Save(*campaign)
+	if err != nil {
+		return "", err
+	}
 
 	return campaign.Id, nil
 }
