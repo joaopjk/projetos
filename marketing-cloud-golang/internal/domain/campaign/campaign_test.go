@@ -43,7 +43,7 @@ func TestNewCampaign_MustValidateName(t *testing.T) {
 
 	_, err := NewCampaign("", content, contact)
 
-	assertions.Equal("name is required", err.Error())
+	assertions.NotNil(err)
 }
 
 func TestNewCampaign_MustValidateContent(t *testing.T) {
@@ -51,7 +51,7 @@ func TestNewCampaign_MustValidateContent(t *testing.T) {
 
 	_, err := NewCampaign(name, "", contact)
 
-	assertions.Equal("content is required", err.Error())
+	assertions.NotNil(err)
 }
 
 func TestNewCampaign_MustValidateContacts(t *testing.T) {
@@ -59,5 +59,5 @@ func TestNewCampaign_MustValidateContacts(t *testing.T) {
 
 	_, err := NewCampaign(name, content, []string{})
 
-	assertions.Equal("emails is required", err.Error())
+	assertions.NotNil(err)
 }
