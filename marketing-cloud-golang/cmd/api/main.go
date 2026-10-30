@@ -1,0 +1,49 @@
+package main
+
+import (
+	"emailn/internal/contract"
+	"emailn/internal/domain/campaign"
+	"emailn/internal/infra/database"
+	"emailn/internal/internalErrors"
+	"errors"
+	"net/http"
+
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
+	"github.com/go-chi/render"
+)
+
+func main() {
+	r := chi.NewRouter()
+
+	r.Use(middleware.RequestID)
+	r.Use(middleware.Logger)
+	r.Use(middleware.Recoverer)
+
+	service := campaign.Service{Repository: &database.CampaignRepository{}}
+
+	r.Post("/campaigns", func(w http.ResponseWriter, r *http.Request) {
+		var request contract.NewCampaign
+		err := render.DecodeJSON(r.Body, &request)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+
+		id, err := service.CreateCampaign(request)
+
+		if err != nil {
+			if errors.Is(err, internalErrors.ErrInternal) {
+				render.Status(r, http.StatusInternalServerError)
+				render.JSON(w, r, render.M{"error": err})
+			} else {
+				render.Status(r, http.StatusBadRequest)
+				render.JSON(w, r, render.M{"error": err})
+			}
+		}
+
+		render.Status(r, http.StatusCreated)
+		render.JSON(w, r, map[string]string{"id": id})
+	})
+
+	_ = http.ListenAndServe(":3000", r)
+}

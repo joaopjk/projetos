@@ -16,7 +16,7 @@ func (s *Service) CreateCampaign(newCampaign contract.NewCampaign) (string, erro
 		return "", err
 	}
 
-	err = s.Repository.Save(*campaign)
+	err = s.Repository.Save(campaign)
 	if err != nil {
 		return "", internalErrors.ErrInternal
 	}
