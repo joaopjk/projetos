@@ -34,11 +34,10 @@ func main() {
 		if err != nil {
 			if errors.Is(err, internalErrors.ErrInternal) {
 				render.Status(r, http.StatusInternalServerError)
-				render.JSON(w, r, render.M{"error": err})
 			} else {
 				render.Status(r, http.StatusBadRequest)
-				render.JSON(w, r, render.M{"error": err})
 			}
+			render.JSON(w, r, render.M{"error": err})
 		}
 
 		render.Status(r, http.StatusCreated)
