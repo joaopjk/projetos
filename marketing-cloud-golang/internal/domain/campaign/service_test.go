@@ -23,9 +23,13 @@ type repositoryMock struct {
 	mock.Mock
 }
 
-func (r *repositoryMock) Save(campaign Campaign) error {
+func (r *repositoryMock) Save(campaign *Campaign) error {
 	args := r.Called(campaign)
 	return args.Error(0)
+}
+
+func (r *repositoryMock) Get() []Campaign {
+	return nil
 }
 
 func TestService_CreateCampaign(t *testing.T) {
