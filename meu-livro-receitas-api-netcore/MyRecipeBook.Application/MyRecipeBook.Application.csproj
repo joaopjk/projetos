@@ -6,4 +6,14 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\MyRecipeBook.Communication\MyRecipeBook.Communication.csproj" />
+      <ProjectReference Include="..\MyRecipeBook.Domain\MyRecipeBook.Domain.csproj" />
+      <ProjectReference Include="..\MyRecipeBook.Exceptions\MyRecipeBook.Exceptions.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="12.2.0" />
+    </ItemGroup>
+
 </Project>

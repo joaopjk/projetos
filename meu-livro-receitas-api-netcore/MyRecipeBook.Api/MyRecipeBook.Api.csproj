@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MyRecipeBook.Communication\MyRecipeBook.Communication.csproj" />
+      <ProjectReference Include="..\MyRecipeBook.Exceptions\MyRecipeBook.Exceptions.csproj" />
     </ItemGroup>
 
 </Project>
